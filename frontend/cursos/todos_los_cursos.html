@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Todos los cursos | Aula Psicontacto</title>
+
+  <link rel="stylesheet" href="../css/aula.css">
+
+  <style>
+
+    .catalog-hero{
+      padding:70px 6%;
+      background:linear-gradient(135deg,#14566d,#1f6f8b);
+      color:white;
+    }
+
+    .catalog-hero h1{
+      font-size:64px;
+      line-height:1.05;
+      margin-bottom:20px;
+    }
+
+    .catalog-hero p{
+      max-width:760px;
+      font-size:22px;
+      line-height:1.8;
+      opacity:.92;
+    }
+
+    .catalog-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:28px;
+      padding:60px 6%;
+      background:#f5fbfb;
+    }
+
+    .course-card{
+      background:white;
+      border-radius:32px;
+      overflow:hidden;
+      box-shadow:0 12px 28px rgba(0,0,0,0.06);
+      transition:.25s;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .course-card:hover{
+      transform:translateY(-6px);
+    }
+
+    .course-cover{
+      height:220px;
+      background:linear-gradient(135deg,#dff8f5,#ffffff);
+      display:grid;
+      place-items:center;
+      font-size:72px;
+    }
+
+    .course-content{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      flex:1;
+    }
+
+    .course-tag{
+      display:inline-flex;
+      width:max-content;
+      background:#e8f7f5;
+      color:#14566d;
+      padding:8px 16px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .course-content h2{
+      margin:0;
+      font-size:32px;
+      line-height:1.15;
+      color:#163949;
+    }
+
+    .course-content p{
+      margin:0;
+      color:#60717a;
+      line-height:1.8;
+      font-size:17px;
+    }
+
+    .course-footer{
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .course-meta{
+      color:#6b7f88;
+      font-size:14px;
+    }
+
+    @media(max-width:768px){
+
+      .catalog-hero{
+        padding:46px 22px;
+      }
+
+      .catalog-hero h1{
+        font-size:46px;
+      }
+
+      .catalog-hero p{
+        font-size:18px;
+      }
+
+      .catalog-grid{
+        padding:28px 18px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+  <a class="logo" href="../index.html">
+    <img src="../assets/img/logo_psicontacto.png" alt="Psicontacto">
+  </a>
+
+  <div class="navlinks">
+    <a href="../index.html">Inicio</a>
+
+    <a href="todos_los_cursos.html">
+      Cursos
+    </a>
+
+    <a href="https://psicontacto.ar/app"
+       target="_blank">
+      Buscar profesional
+    </a>
+  </div>
+
+</nav>
+
+<header class="catalog-hero">
+
+  <div class="badge">
+    Aula Psicontacto · Catálogo de cursos
+  </div>
+
+  <h1>
+    Explorar cursos y
+    experiencias de aprendizaje
+  </h1>
+
+  <p>
+    Formación online en salud mental, bienestar emocional y herramientas de cuidado personal desarrolladas por profesionales.
+  </p>
+
+</header>
+
+<section class="catalog-grid">
+
+  <article class="course-card">
+
+    <div class="course-cover">
+      🌿
+    </div>
+
+    <div class="course-content">
+
+      <div class="course-tag">
+        Bienestar emocional
+      </div>
+
+      <h2>
+        Herramientas para el bienestar emocional
+      </h2>
+
+      <p>
+        Un recorrido para comprender la ansiedad, reconocer sus manifestaciones y comenzar a desarrollar recursos personales de regulación emocional.
+      </p>
+
+      <div class="course-footer">
+
+        <div class="course-meta">
+          Lic. Valeria Vengolea
+        </div>
+
+        <a class="btn btn-primary"
+           href="curso_ansiedad.html">
+          Ver curso
+        </a>
+
+      </div>
+
+    </div>
+
+  </article>
+
+  <article class="course-card">
+
+    <div class="course-cover">
+      🧠
+    </div>
+
+    <div class="course-content">
+
+      <div class="course-tag">
+        Próximamente
+      </div>
+
+      <h2>
+        Introducción al autocuidado emocional
+      </h2>
+
+      <p>
+        Próximo curso disponible en Aula Psicontacto.
+      </p>
+
+      <div class="course-footer">
+
+        <div class="course-meta">
+          Próximamente
+        </div>
+
+        <a class="btn btn-secondary"
+           href="#">
+          Próximamente
+        </a>
+
+      </div>
+
+    </div>
+
+  </article>
+
+</section>
+
+</body>
+</html>
