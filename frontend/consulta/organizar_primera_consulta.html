@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizar primera consulta | Psicontacto</title>
+
+  <link rel="stylesheet" href="../css/aula.css">
+
+  <style>
+    .consulta-wrap{
+      min-height:100vh;
+      background:#f5fbfb;
+      padding:54px 6%;
+    }
+
+    .consulta-header{
+      max-width:980px;
+      margin:0 auto 34px;
+      text-align:center;
+    }
+
+    .consulta-header h1{
+      font-size:48px;
+      line-height:1.08;
+      margin:18px 0;
+      color:#1a2433;
+    }
+
+    .consulta-header p{
+      color:#60717a;
+      font-size:19px;
+      line-height:1.7;
+    }
+
+    .consulta-card{
+      max-width:860px;
+      margin:0 auto;
+      background:white;
+      border:1px solid #dcefee;
+      border-radius:32px;
+      padding:34px;
+      box-shadow:0 18px 40px rgba(31,111,139,.12);
+    }
+
+    .progress-text{
+      color:#1f6f8b;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    .step{
+      display:none;
+      animation:fadeIn .25s ease;
+    }
+
+    .step.active{
+      display:block;
+    }
+
+    .step h2{
+      font-size:30px;
+      margin:0 0 10px;
+      color:#163949;
+    }
+
+    .step p{
+      color:#60717a;
+      line-height:1.6;
+      margin-bottom:18px;
+    }
+
+    textarea,
+    input,
+    select{
+      width:100%;
+      border:1px solid #cfe7e5;
+      border-radius:18px;
+      padding:16px;
+      font-size:17px;
+      font-family:Arial, Helvetica, sans-serif;
+      outline:none;
+      background:#fbffff;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus{
+      border-color:#38b6ab;
+      box-shadow:0 0 0 4px rgba(56,182,171,.12);
+    }
+
+    .step-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+
+    .hint-box{
+      background:#eefafa;
+      border-left:5px solid #38b6ab;
+      border-radius:20px;
+      padding:18px;
+      margin-top:20px;
+      color:#51656f;
+      line-height:1.6;
+    }
+
+    .resultado-box{
+      display:none;
+      max-width:860px;
+      margin:30px auto 0;
+      background:white;
+      border:1px solid #dcefee;
+      border-radius:32px;
+      padding:34px;
+      box-shadow:0 18px 40px rgba(31,111,139,.12);
+    }
+
+    .resultado-box p{
+      white-space:pre-line;
+      color:#455963;
+      line-height:1.7;
+      font-size:17px;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateY(8px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+
+    @media(max-width:768px){
+      .consulta-wrap{
+        padding:34px 18px;
+      }
+
+      .consulta-header h1{
+        font-size:36px;
+      }
+
+      .consulta-card,
+      .resultado-box{
+        padding:24px;
+        border-radius:26px;
+      }
+
+      .step h2{
+        font-size:25px;
+      }
+
+      .step-actions{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a class="logo" href="../index.html">
+      <img src="../assets/img/logo_psicontacto.png" alt="Psicontacto">
+    </a>
+
+    <div class="navlinks">
+      <a href="../index.html">Inicio</a>
+      <a href="../cursos/todos_los_cursos.html">Cursos</a>
+      <a class="btn btn-primary"
+         href="https://psicontacto.ar/app/profesional/5K6z13rg0L"
+         target="_blank"
+         rel="noopener noreferrer">
+        Solicitar turno
+      </a>
+    </div>
+  </nav>
+
+  <main class="consulta-wrap">
+    <div class="consulta-header">
+      <div class="badge">Psicontacto · Primera consulta</div>
+      <h1>Organicemos juntos tu primera consulta</h1>
+      <p>
+        Te vamos a hacer algunas preguntas, una por vez, para ayudarte a ordenar lo que querés llevar al primer encuentro.
+        No hacemos diagnósticos ni reemplazamos la consulta profesional.
+      </p>
+    </div>
+
+    <section class="consulta-card">
+      <div class="progress-text" id="progressText">Paso 1 de 7</div>
+
+      <div class="step active" data-step="1">
+        <h2>¿Cómo querés que te nombremos?</h2>
+        <p>Podés escribir tu nombre, iniciales o dejarlo en blanco.</p>
+        <input id="nombre" placeholder="Ej: Eduardo, Ana, M.">
+        <div class="step-actions">
+          <button class="btn btn-primary" onclick="nextStep()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="2">
+        <h2>¿Qué te lleva a consultar?</h2>
+        <p>Contá brevemente qué te preocupa o qué te gustaría trabajar.</p>
+        <textarea id="motivo" rows="6" placeholder="Ej: me siento ansioso/a, estoy atravesando un momento difícil, necesito orientación..."></textarea>
+        <div class="hint-box">No hace falta escribir perfecto. La idea es ordenar lo que hoy podés poner en palabras.</div>
+        <div class="step-actions">
+          <button class="btn btn-secondary" onclick="prevStep()">Volver</button>
+          <button class="btn btn-primary" onclick="nextStep()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="3">
+        <h2>¿Desde cuándo te pasa?</h2>
+        <p>Puede ser algo reciente, algo que viene hace tiempo o algo que apareció después de una situación puntual.</p>
+        <textarea id="desde" rows="5" placeholder="Ej: desde hace algunas semanas, hace meses, después de una separación, cambio laboral, duelo..."></textarea>
+        <div class="step-actions">
+          <button class="btn btn-secondary" onclick="prevStep()">Volver</button>
+          <button class="btn btn-primary" onclick="nextStep()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="4">
+        <h2>¿Cómo se manifiesta en tu vida cotidiana?</h2>
+        <p>Podés mencionar cuerpo, sueño, pensamientos, vínculos, trabajo, estudio, ánimo o lo que sientas importante.</p>
+        <textarea id="manifestacion" rows="6" placeholder="Ej: duermo mal, tengo pensamientos repetitivos, me cuesta concentrarme, siento tensión..."></textarea>
+        <div class="step-actions">
+          <button class="btn btn-secondary" onclick="prevStep()">Volver</button>
+          <button class="btn btn-primary" onclick="nextStep()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="5">
+        <h2>¿Qué esperás de una primera consulta?</h2>
+        <p>Puede ser hablar, entender qué te pasa, recibir orientación o comenzar un tratamiento.</p>
+        <textarea id="expectativa" rows="5" placeholder="Ej: poder hablar con alguien, ordenar lo que siento, recibir orientación..."></textarea>
+        <div class="step-actions">
+          <button class="btn btn-secondary" onclick="prevStep()">Volver</button>
+          <button class="btn btn-primary" onclick="nextStep()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="6">
+        <h2>¿Qué modalidad preferís?</h2>
+        <p>Elegí la opción que te resulte más cómoda.</p>
+        <select id="modalidad">
+          <option value="">Seleccionar modalidad</option>
+          <option>Online</option>
+          <option>Presencial</option>
+          <option>Cualquiera de las dos</option>
+        </select>
+        <div class="step-actions">
+          <button class="btn btn-secondary" onclick="prevStep()">Volver</button>
+          <button class="btn btn-primary" onclick="nextStep()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="7">
+        <h2>¿Qué disponibilidad horaria tenés?</h2>
+        <p>Indicá días u horarios aproximados. No tiene que ser exacto.</p>
+        <textarea id="disponibilidad" rows="5" placeholder="Ej: tardes, después de las 18 hs, lunes y miércoles, fines de semana..."></textarea>
+        <div class="step-actions">
+          <button class="btn btn-secondary" onclick="prevStep()">Volver</button>
+          <button class="btn btn-primary" onclick="generarResumen()">Generar resumen</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultado" class="resultado-box">
+      <h2>Resumen para tu primera consulta</h2>
+      <p id="resumenTexto"></p>
+
+      <div class="step-actions">
+        <button class="btn btn-primary" onclick="copiarResumen()">Copiar resumen</button>
+
+        <a class="btn btn-secondary"
+           href="https://psicontacto.ar/app/profesional/5K6z13rg0L"
+           target="_blank"
+           rel="noopener noreferrer">
+          Solicitar turno
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 7;
+
+    function updateSteps(){
+      document.querySelectorAll(".step").forEach(step => {
+        step.classList.remove("active");
+      });
+
+      document.querySelector(`[data-step="${currentStep}"]`).classList.add("active");
+      document.getElementById("progressText").textContent = `Paso ${currentStep} de ${totalSteps}`;
+    }
+
+    function nextStep(){
+      if(currentStep < totalSteps){
+        currentStep++;
+        updateSteps();
+      }
+    }
+
+    function prevStep(){
+      if(currentStep > 1){
+        currentStep--;
+        updateSteps();
+      }
+    }
+
+    function valor(id){
+      const el = document.getElementById(id);
+      return el.value.trim() || "No especificado";
+    }
+
+    function generarResumen(){
+      const resumen = `Resumen para primera consulta
+
+Nombre o iniciales:
+${valor("nombre")}
+
+Motivo de consulta:
+${valor("motivo")}
+
+Desde cuándo ocurre:
+${valor("desde")}
+
+Manifestaciones en la vida cotidiana:
+${valor("manifestacion")}
+
+Expectativas para la primera consulta:
+${valor("expectativa")}
+
+Modalidad preferida:
+${valor("modalidad")}
+
+Disponibilidad horaria:
+${valor("disponibilidad")}
+
+Nota:
+Este resumen fue organizado por la persona como orientación inicial. No constituye diagnóstico ni reemplaza la evaluación profesional. La persona decide si desea compartirlo con el/la profesional.`;
+
+      document.getElementById("resumenTexto").textContent = resumen;
+      document.getElementById("resultado").style.display = "block";
+      document.getElementById("resultado").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function copiarResumen(){
+      const texto = document.getElementById("resumenTexto").textContent;
+      navigator.clipboard.writeText(texto);
+      alert("Resumen copiado.");
+    }
+  </script>
+</body>
+</html>

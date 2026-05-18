@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizar primera consulta | Psicontacto</title>
+
+  <link rel="stylesheet" href="../css/aula.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <a class="logo" href="../index.html">
+      <img src="../assets/img/logo_psicontacto.png" alt="Psicontacto">
+    </a>
+
+    <div class="navlinks">
+      <a href="../index.html">Inicio</a>
+      <a href="../cursos/todos_los_cursos.html">Cursos</a>
+      <a class="btn btn-primary"
+         href="https://psicontacto.ar/app/profesional/5K6z13rg0L"
+         target="_blank"
+         rel="noopener noreferrer">
+        Solicitar turno
+      </a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="badge">Psicontacto · Primera consulta</div>
+      <h1>Organizá lo que querés llevar a tu primera consulta</h1>
+      <p>
+        Este espacio te ayuda a ordenar tus ideas antes de pedir un turno.
+        No reemplaza una consulta profesional ni realiza diagnósticos.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <h3>¿Para qué sirve?</h3>
+      <p>
+        Para llegar con más claridad: qué te pasa, desde cuándo, qué te preocupa
+        y qué esperás trabajar con un/a profesional.
+      </p>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-title">
+      <h2>Formulario guiado</h2>
+      <p>Completá solo lo que quieras. Al final se generará un resumen para copiar.</p>
+    </div>
+
+    <div class="card" style="max-width:900px; margin:0 auto;">
+      <label>Nombre o iniciales</label>
+      <textarea id="nombre" rows="2" placeholder="Ej: M., Ana, Juan..."></textarea>
+
+      <label>¿Qué te lleva a consultar?</label>
+      <textarea id="motivo" rows="5" placeholder="Contá brevemente qué te preocupa o qué te gustaría trabajar."></textarea>
+
+      <label>¿Desde cuándo te pasa?</label>
+      <textarea id="desde" rows="3" placeholder="Ej: desde hace algunas semanas, varios meses, después de una situación puntual..."></textarea>
+
+      <label>¿Cómo se manifiesta en tu vida cotidiana?</label>
+      <textarea id="manifestacion" rows="5" placeholder="Sueño, cuerpo, pensamientos, vínculos, trabajo, estudio, ánimo..."></textarea>
+
+      <label>¿Qué esperás de una primera consulta?</label>
+      <textarea id="expectativa" rows="4" placeholder="Ej: poder hablar, entender qué me pasa, recibir orientación, empezar tratamiento..."></textarea>
+
+      <label>Modalidad preferida</label>
+      <textarea id="modalidad" rows="2" placeholder="Online, presencial, cualquiera de las dos..."></textarea>
+
+      <label>Disponibilidad horaria aproximada</label>
+      <textarea id="disponibilidad" rows="3" placeholder="Ej: tardes, mañana, después de las 18 hs..."></textarea>
+
+      <div class="hero-actions" style="margin-top:24px;">
+        <button class="btn btn-primary" onclick="generarResumen()">
+          Generar resumen
+        </button>
+
+        <a class="btn btn-secondary"
+           href="https://psicontacto.ar/app/profesional/5K6z13rg0L"
+           target="_blank"
+           rel="noopener noreferrer">
+          Solicitar turno
+        </a>
+      </div>
+    </div>
+
+    <div id="resultado" class="card" style="max-width:900px; margin:32px auto 0; display:none;">
+      <h3>Resumen para tu primera consulta</h3>
+      <p id="resumenTexto" style="white-space:pre-line;"></p>
+
+      <button class="btn btn-primary" onclick="copiarResumen()">
+        Copiar resumen
+      </button>
+    </div>
+  </section>
+
+  <script>
+    function valor(id){
+      return document.getElementById(id).value.trim() || "No especificado";
+    }
+
+    function generarResumen(){
+      const resumen = `Resumen para primera consulta
+
+Nombre o iniciales:
+${valor("nombre")}
+
+Motivo de consulta:
+${valor("motivo")}
+
+Desde cuándo ocurre:
+${valor("desde")}
+
+Manifestaciones en la vida cotidiana:
+${valor("manifestacion")}
+
+Expectativas para la primera consulta:
+${valor("expectativa")}
+
+Modalidad preferida:
+${valor("modalidad")}
+
+Disponibilidad horaria:
+${valor("disponibilidad")}
+
+Nota:
+Este resumen fue organizado por la persona como orientación inicial. No constituye diagnóstico ni reemplaza la evaluación profesional.`;
+
+      document.getElementById("resumenTexto").textContent = resumen;
+      document.getElementById("resultado").style.display = "block";
+      document.getElementById("resultado").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function copiarResumen(){
+      const texto = document.getElementById("resumenTexto").textContent;
+      navigator.clipboard.writeText(texto);
+      alert("Resumen copiado.");
+    }
+  </script>
+</body>
+</html>
