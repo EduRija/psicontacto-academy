@@ -196,16 +196,24 @@
 
   </header>
 
-  <form class="publicar-card"
+ <form class="publicar-card"
       name="publicar-curso"
       method="POST"
       data-netlify="true"
+      netlify-honeypot="bot-field"
       action="/gracias.html">
-
 
     <input type="hidden"
        name="form-name"
-       value="publicar-curso">
+       value="publicar-curso">   
+
+   <p hidden>
+      <label>
+        No completar:
+        <input name="bot-field">
+      </label>
+    </p>
+
 
     <div class="form-grid">
 
