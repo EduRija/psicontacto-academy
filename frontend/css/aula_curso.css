@@ -1,171 +1,183 @@
- .aula-layout{
-      display:grid;
-      grid-template-columns:320px 1fr;
-      min-height:100vh;
-    }
+.aula-layout{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  min-height:100vh;
+}
 
-    .aula-sidebar{
-      background:#14566d;
-      color:white;
-      padding:32px 24px;
-      position:sticky;
-      top:0;
-      height:100vh;
-      overflow-y:auto;
-    }
+.aula-sidebar{
+  background:linear-gradient(180deg, #14566d, #1f8f9b);
+  color:white;
+  padding:32px 24px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+}
 
-    .aula-sidebar h2{
-      margin-top:0;
-      font-size:28px;
-      line-height:1.2;
-    }
+.aula-sidebar h2{
+  margin-top:0;
+  font-size:28px;
+  line-height:1.2;
+  color:white;
+}
 
-    .aula-module{
-      background:rgba(255,255,255,0.08);
-      padding:16px;
-      border-radius:18px;
-      margin-bottom:12px;
-      cursor:pointer;
-      transition:.2s;
-      display:block;
-      text-decoration:none;
-      color:inherit;
-    }
+.aula-module{
+  display:block;
+  background:rgba(255,255,255,0.14);
+  color:white !important;
+  padding:16px;
+  border-radius:18px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:.2s;
+  text-decoration:none;
+}
 
-    .aula-module:hover{
-      background:rgba(255,255,255,0.16);
-    }
+.aula-module:visited,
+.aula-module:hover,
+.aula-module:link{
+  color:white !important;
+  text-decoration:none;
+}
 
-    .aula-module.active{
-      background:white;
-      color:#14566d;
-      font-weight:700;
-    }
+.aula-module:hover{
+  background:rgba(255,255,255,0.22);
+}
 
-    .progress-bar {
-      width: 100%;
-      height: 12px;
-      background: #dcefee;
-      border-radius: 999px;
-      overflow: hidden;
-      margin: 24px 0 34px;
-    }
+.aula-module.active{
+  background:white !important;
+  color:#111111 !important;
+  font-weight:700;
+}
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(135deg,#1f6f8b,#38b6ab);
-      border-radius: 999px;
-    }
+.aula-module.active:visited,
+.aula-module.active:hover,
+.aula-module.active:link{
+  color:#111111 !important;
+}
 
-    .aula-content{
-      padding:48px;
-      background:#f5fbfb;
-    }
+.progress-bar{
+  width:100%;
+  height:12px;
+  background:#dcefee;
+  border-radius:999px;
+  overflow:hidden;
+  margin:24px 0 34px;
+}
 
-    .lesson-card{
-      background:white;
-      border-radius:32px;
-      padding:42px;
-      box-shadow:0 14px 32px rgba(0,0,0,0.06);
-      margin-bottom:28px;
-    }
+.progress-fill{
+  height:100%;
+  background:linear-gradient(135deg,#1f6f8b,#38b6ab);
+  border-radius:999px;
+}
 
-    .lesson-card h1{
-      margin-top:0;
-      font-size:52px;
-      line-height:1.05;
-      margin-bottom:18px;
-    }
+.aula-content{
+  padding:48px;
+  background:#f5fbfb;
+}
 
-    .lesson-card p{
-      color:#5d6c77;
-      line-height:1.9;
-      font-size:18px;
-    }
+.lesson-card{
+  background:white;
+  border-radius:32px;
+  padding:42px;
+  box-shadow:0 14px 32px rgba(0,0,0,0.06);
+  margin-bottom:28px;
+}
 
-    .highlight-box{
-      background:#eefafa;
-      border-left:6px solid #38b6ab;
-      border-radius:24px;
-      padding:28px;
-      margin:32px 0;
-    }
+.lesson-card h1{
+  margin-top:0;
+  font-size:52px;
+  line-height:1.05;
+  margin-bottom:18px;
+}
 
-    .highlight-box h3{
-      margin-top:0;
-      color:#14566d;
-    }
+.lesson-card p{
+  color:#5d6c77;
+  line-height:1.9;
+  font-size:18px;
+}
 
-    .symptoms-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:18px;
-      margin-top:24px;
-    }
+.highlight-box{
+  background:#eefafa;
+  border-left:6px solid #38b6ab;
+  border-radius:24px;
+  padding:28px;
+  margin:32px 0;
+}
 
-    .symptom-card{
-      background:#fbffff;
-      border:1px solid #dcefee;
-      border-radius:22px;
-      padding:22px;
-    }
+.highlight-box h3{
+  margin-top:0;
+  color:#14566d;
+}
 
-    .symptom-card h4{
-      margin-top:0;
-      color:#14566d;
-    }
+.symptoms-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:24px;
+}
 
-    .exercise-box{
-      background:white;
-      border:2px dashed #38b6ab;
-      border-radius:26px;
-      padding:30px;
-      margin-top:34px;
-    }
+.symptom-card{
+  background:#fbffff;
+  border:1px solid #dcefee;
+  border-radius:22px;
+  padding:22px;
+}
 
-    .exercise-box h3{
-      margin-top:0;
-      color:#14566d;
-    }
+.symptom-card h4{
+  margin-top:0;
+  color:#14566d;
+}
 
-    .exercise-box ul{
-      padding-left:24px;
-      line-height:1.9;
-      color:#51656f;
-    }
+.exercise-box{
+  background:white;
+  border:2px dashed #38b6ab;
+  border-radius:26px;
+  padding:30px;
+  margin-top:34px;
+}
 
-    .lesson-actions{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-top:34px;
-    }
+.exercise-box h3{
+  margin-top:0;
+  color:#14566d;
+}
 
-    @media(max-width:900px){
+.exercise-box ul{
+  padding-left:24px;
+  line-height:1.9;
+  color:#51656f;
+}
 
-      .aula-layout{
-        grid-template-columns:1fr;
-      }
+.lesson-actions{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:34px;
+}
 
-      .aula-sidebar{
-        position:relative;
-        height:auto;
-      }
+@media(max-width:900px){
+  .aula-layout{
+    grid-template-columns:1fr;
+  }
 
-      .aula-content{
-        padding:22px;
-      }
+  .aula-sidebar{
+    position:relative;
+    height:auto;
+  }
 
-      .lesson-card{
-        padding:28px;
-      }
+  .aula-content{
+    padding:22px;
+  }
 
-      .lesson-card h1{
-        font-size:38px;
-      }
+  .lesson-card{
+    padding:28px;
+  }
 
-      .symptoms-grid{
-        grid-template-columns:1fr;
-      }
+  .lesson-card h1{
+    font-size:38px;
+  }
 
-    }
+  .symptoms-grid{
+    grid-template-columns:1fr;
+  }
+}
