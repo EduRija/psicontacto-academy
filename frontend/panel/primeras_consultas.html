@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primeras consultas | Aula Psicontacto</title>
+
+  <link rel="stylesheet" href="../css/aula.css">
+
+  <style>
+    .panel-wrap{
+      min-height:100vh;
+      background:#f5fbfb;
+      padding:50px 6%;
+    }
+
+    .panel-header{
+      max-width:1000px;
+      margin:0 auto 32px;
+    }
+
+    .panel-header h1{
+      font-size:48px;
+      margin:16px 0;
+      color:#163949;
+    }
+
+    .panel-header p{
+      color:#60717a;
+      font-size:18px;
+      line-height:1.7;
+    }
+
+    .panel-filters{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+
+    .panel-filters select,
+    .panel-filters input{
+      border:1px solid #cfe7e5;
+      border-radius:16px;
+      padding:12px 14px;
+      background:white;
+      color:#14566d;
+      font-weight:700;
+    }
+
+    .lead-grid{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      gap:18px;
+    }
+
+    .lead-card{
+      background:white;
+      border:1px solid #dcefee;
+      border-radius:26px;
+      padding:24px;
+      box-shadow:0 12px 28px rgba(31,111,139,.08);
+    }
+
+    .lead-top{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom:12px;
+    }
+
+    .lead-card h3{
+      margin:0;
+      color:#14566d;
+      font-size:24px;
+    }
+
+    .lead-meta{
+      color:#60717a;
+      font-size:14px;
+    }
+
+    .lead-summary{
+      display:none;
+      margin-top:18px;
+      background:#eefafa;
+      border-left:5px solid #38b6ab;
+      border-radius:18px;
+      padding:18px;
+      white-space:pre-line;
+      color:#455963;
+      line-height:1.7;
+    }
+
+    .status-select{
+      border:none;
+      background:#e8f7f5;
+      color:#14566d;
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+    }
+
+    @media(max-width:768px){
+      .panel-wrap{
+        padding:30px 18px;
+      }
+
+      .panel-header h1{
+        font-size:34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a class="logo" href="../index.html">
+      <img src="../assets/img/logo_psicontacto.png" alt="Psicontacto">
+    </a>
+
+    <div class="navlinks">
+      <a href="../index.html">Inicio</a>
+      <a href="../cursos/todos_los_cursos.html">Cursos</a>
+      <a href="../sobre_aula_psicontacto.html">Sobre el aula</a>
+    </div>
+  </nav>
+
+  <main class="panel-wrap">
+    <header class="panel-header">
+      <div class="badge">Panel interno</div>
+      <h1>Primeras consultas recibidas</h1>
+      <p>Listado interno de personas que organizaron una primera consulta desde Aula Psicontacto.</p>
+
+      <div class="panel-filters">
+        <select id="filtroEstado" onchange="aplicarFiltros()">
+          <option value="todos">Todos los estados</option>
+          <option value="pendiente">A · Pendiente</option>
+          <option value="resuelto">B · Resuelto</option>
+        </select>
+
+        <input type="date" id="fechaDesde" onchange="aplicarFiltros()">
+        <input type="date" id="fechaHasta" onchange="aplicarFiltros()">
+      </div>
+    </header>
+
+    <section id="leads" class="lead-grid">
+      <div class="card">Cargando consultas...</div>
+    </section>
+  </main>
+
+  <script>
+    const API_URL = "http://localhost:8000/api/academy/primera-consulta/listado/";
+    let consultas = [];
+
+    function fechaLegible(fecha){
+      if(!fecha) return "Sin fecha";
+      return new Date(fecha).toLocaleString("es-AR");
+    }
+
+    function fechaISO(fecha){
+      if(!fecha) return "";
+      return new Date(fecha).toISOString().slice(0, 10);
+    }
+
+    function escapeHTML(texto){
+      return String(texto || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function toggleResumen(id){
+      const el = document.getElementById("resumen-" + id);
+      el.style.display = el.style.display === "block" ? "none" : "block";
+    }
+
+    function aplicarFiltros(){
+      const estado = document.getElementById("filtroEstado").value;
+      const desde = document.getElementById("fechaDesde").value;
+      const hasta = document.getElementById("fechaHasta").value;
+
+      let filtradas = consultas.filter(lead => {
+        const estadoLead = lead.estado || "pendiente";
+        const fechaLead = fechaISO(lead.creado_en);
+
+        const coincideEstado = estado === "todos" || estadoLead === estado;
+        const coincideDesde = !desde || fechaLead >= desde;
+        const coincideHasta = !hasta || fechaLead <= hasta;
+
+        return coincideEstado && coincideDesde && coincideHasta;
+      });
+
+      renderConsultas(filtradas);
+    }
+
+    function renderConsultas(data){
+      const contenedor = document.getElementById("leads");
+
+      if(!data.length){
+        contenedor.innerHTML = `<div class="card">No hay consultas para los filtros seleccionados.</div>`;
+        return;
+      }
+
+      contenedor.innerHTML = data.map(lead => `
+        <article class="lead-card">
+          <div class="lead-top">
+            <div>
+              <h3>${escapeHTML(lead.nombre || "Sin nombre")}</h3>
+              <div class="lead-meta">
+                ${fechaLegible(lead.creado_en)} · ${escapeHTML(lead.modalidad || "Sin modalidad")}
+              </div>
+            </div>
+
+          <div class="status-select">
+            ${
+              lead.estado === "resuelto"
+                ? "B · Resuelto"
+                : lead.estado === "pendiente"
+                  ? "A · Pendiente"
+                  : "Nuevo"
+            }
+          </div>
+          </div>
+
+          <p><strong>Asignado a:</strong> ${escapeHTML(lead.profesional_asignado || "Sin asignar")}</p>
+
+          
+          <div class="lead-actions">
+            <select id="profesional-${lead.id}" class="status-select">
+              <option value="">Seleccionar profesional</option>
+              <option value="Lic. Valeria Vengolea">Lic. Valeria Vengolea</option>
+              <option value="Lic. Eduardo Rija">Lic. Eduardo Rija</option>
+            </select>
+
+            <button class="btn btn-primary" onclick="asignarConsulta(${lead.id})">
+              Asignar
+            </button>
+          </div>
+
+            ${
+          lead.estado !== "resuelto"
+            ? `
+              <button class="btn btn-secondary"
+                      onclick="marcarResuelto(${lead.id})">
+                Marcar resuelto
+              </button>
+            `
+            : ""
+        }
+
+
+
+          <p><strong>Fecha de asignación:</strong> ${
+            lead.fecha_asignacion ? fechaLegible(lead.fecha_asignacion) : "Sin fecha"
+          }</p>
+
+          <p><strong>Motivo:</strong> ${escapeHTML(lead.motivo || "No especificado")}</p>
+
+          <div class="lead-actions">
+            <button class="btn btn-primary" onclick="toggleResumen(${lead.id})">
+              Ver resumen
+            </button>
+          </div>
+
+          <div class="lead-summary" id="resumen-${lead.id}">
+${escapeHTML(lead.resumen_generado || "Sin resumen")}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    async function cargarConsultas(){
+      const contenedor = document.getElementById("leads");
+
+      try{
+        const response = await fetch(API_URL);
+
+        if(!response.ok){
+          throw new Error("No se pudieron cargar las consultas");
+        }
+
+        consultas = await response.json();
+        aplicarFiltros();
+
+      }catch(error){
+        console.error(error);
+        contenedor.innerHTML = `<div class="card">No se pudieron cargar las consultas. Verificá que Django esté corriendo.</div>`;
+      }
+    }
+
+    async function asignarConsulta(id){
+  const profesional = document.getElementById(`profesional-${id}`).value;
+
+  if(!profesional){
+    alert("Seleccioná un profesional.");
+    return;
+  }
+
+  const response = await fetch(`http://localhost:8000/api/academy/primera-consulta/${id}/asignar/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      profesional_asignado: profesional,
+      estado: "pendiente"
+    })
+  });
+
+  if(!response.ok){
+    alert("No se pudo asignar la consulta.");
+    return;
+  }
+
+  await cargarConsultas();
+}
+
+
+async function actualizarEstado(id){
+  const estado = document.getElementById(`estado-${id}`).value;
+  const profesional = document.getElementById(`profesional-${id}`)?.value || "";
+
+  const response = await fetch(`http://localhost:8000/api/academy/primera-consulta/${id}/asignar/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      estado: estado,
+      profesional_asignado: profesional
+    })
+  });
+
+  if(!response.ok){
+    alert("No se pudo actualizar el estado.");
+    return;
+  }
+
+  await cargarConsultas();
+}
+
+async function marcarResuelto(id){
+
+  const response = await fetch(
+    `http://localhost:8000/api/academy/primera-consulta/${id}/asignar/`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        estado: "resuelto"
+      })
+    }
+  );
+
+  if(!response.ok){
+    alert("No se pudo actualizar el estado.");
+    return;
+  }
+
+  await cargarConsultas();
+}
+
+
+
+    cargarConsultas();
+  </script>
+</body>
+</html>

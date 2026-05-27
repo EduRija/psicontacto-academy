@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso interno | Psicontacto Academy</title>
+  <link rel="stylesheet" href="css/aula.css">
+</head>
+
+<body>
+  <div id="login" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5fbfb;">
+    <div class="card" style="max-width:480px;text-align:center;">
+      <h1>Acceso interno</h1>
+      <input id="clave" type="password" placeholder="Clave" style="width:100%;padding:14px;margin:20px 0;">
+      <button class="btn btn-primary" onclick="validar()">Ingresar</button>
+      <p id="error" style="display:none;color:#b00020;">Clave incorrecta.</p>
+    </div>
+  </div>
+
+  <div id="panel" style="display:none;">
+    <nav class="navbar">
+      <a class="logo" href="index.html">
+        <img src="assets/img/logo_psicontacto.png" alt="Psicontacto">
+      </a>
+    </nav>
+
+    <main class="hero">
+      <div>
+        <div class="badge">Psicontacto Academy · Interno</div>
+        <h1>Panel interno</h1>
+        <p>Acceso operativo para gestionar primeras consultas.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="panel/primeras_consultas.html">
+            Panel primeras consultas
+          </a>
+
+          <a class="btn btn-secondary" href="consulta/organizar_primera_consulta.html">
+            Cargar nueva consulta
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function validar(){
+      const clave = document.getElementById("clave").value.trim();
+
+      if(clave === "1234"){
+        document.getElementById("login").style.display = "none";
+        document.getElementById("panel").style.display = "block";
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

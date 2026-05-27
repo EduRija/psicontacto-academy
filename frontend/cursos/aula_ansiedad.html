@@ -101,26 +101,103 @@
 
       </div>
 
-      <div class="aula-actions">
+     <div class="aula-actions">
 
-        <a class="btn btn-primary"
-           href="../assets/pdf/curso_ansiedad.pdf"
-           download>
-          Descargar guía PDF
-        </a>
+  <button class="btn-comprar"
+        onclick="comprarEbookAnsiedad()">
 
-        <a class="btn btn-secondary"
-           href="curso_ansiedad.html">
-          Volver al curso
-        </a>
+  Comprar E-Book — $1000<span id="precio-ebook"></span>
 
-      </div>
+ </button>
 
-    </div>
+  <a id="btnDescargarEbook"
+    class="btn-descargar disabled"
+    href="../assets/pdf/curso_ansiedad.pdf"
+    download
+    aria-disabled="true">
+    Descargar E-Book
+  </a>
 
-  </main>
+    <span class="aviso-pago">
+      Disponible después de la compra
+    </span>
+
+  </div>
+
+
+  <a class="btn btn-secondary"
+     href="curso_ansiedad.html">
+
+    Volver al curso
+
+  </a>
 
 </div>
+
+
+<script src="assets/js/config_precios.js"></script>
+
+<script>
+async function comprarEbookAnsiedad() {
+
+  try {
+
+    const res = await fetch(
+      "http://127.0.0.1:8000/api/pagos/ebook-ansiedad/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.init_point) {
+      window.open(data.init_point, "_blank");
+    } else {
+      alert("No se pudo iniciar el pago.");
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al conectar con Mercado Pago.");
+  }
+}
+</script>
+s
+<script>
+document.getElementById("precio-ebook").innerText =
+  PRECIOS.ebookAnsiedad.toLocaleString("es-AR");
+</script>
+
+<script>
+function actualizarBotonDescarga() {
+  const comprado = localStorage.getItem("ebookAnsiedadComprado") === "true";
+  const btn = document.getElementById("btnDescargarEbook");
+
+  if (!btn) return;
+
+  if (comprado) {
+    btn.classList.remove("disabled");
+    btn.removeAttribute("aria-disabled");
+    btn.style.pointerEvents = "auto";
+    btn.style.opacity = "1";
+  } else {
+    btn.classList.add("disabled");
+    btn.setAttribute("aria-disabled", "true");
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = "0.55";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", actualizarBotonDescarga);
+window.addEventListener("focus", actualizarBotonDescarga);
+setInterval(actualizarBotonDescarga, 1000);
+</script>
+
+
 
 </body>
 </html>

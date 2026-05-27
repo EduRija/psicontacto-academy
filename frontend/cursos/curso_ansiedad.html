@@ -31,10 +31,14 @@
 
       <div class="hero-actions">
         <a class="btn btn-primary" href="aula_ansiedad.html">
-           Comenzar curso
-         </a>
-        <a class="btn btn-secondary" href="../assets/pdf/curso_ansiedad.pdf" download>Descargar PDF</a>
-      </div>
+              Comenzar curso
+        </a>
+
+      <button class="btn-comprar" onclick="comprarEbookAnsiedad()">
+    Comprar E-Book
+    <span class="precio-boton">$<span id="precio-ebook"></span></span>
+  </button>
+</div>
     </div>
 
     <div class="hero-card">
@@ -50,7 +54,7 @@
 
       <div class="stats">
         <div class="stat"><strong>4</strong><small>capítulos</small></div>
-        <div class="stat"><strong>PDF</strong><small>descargable</small></div>
+       <div class="stat"><strong>E-Book</strong><small>con compra online</small></div>
         <div class="stat"><strong>+Ejercicios</strong><small>prácticos</small></div>
       </div>
     </div>
@@ -113,7 +117,7 @@
 
         <h3>Materiales disponibles</h3>
         <div class="resources" id="material">
-          <a class="resource" href="../assets/pdf/curso_ansiedad.pdf" download>📄 Descargar guía PDF</a>
+         
           <div class="resource">📝 Ejercicios de reflexión</div>
           <div class="resource">🎧 Audio introductorio</div>
         </div>
@@ -133,5 +137,88 @@
     <div>© 2026 Psicontacto.ar · Aula Psicontacto</div>
     <div>Curso: Lic. Valeria Vengolea</div>
   </footer>
+
+
+<script src="../assets/js/config_precios.js"></script>
+
+<script>
+document.getElementById("precio-ebook").innerText =
+  PRECIOS.ebookAnsiedad.toLocaleString("es-AR");
+
+async function comprarEbookAnsiedad() {
+
+  try {
+
+    const res = await fetch(
+      "http://127.0.0.1:8000/api/pagos/ebook-ansiedad/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.init_point) {
+      window.location.href = data.init_point;
+    } else {
+      alert("No se pudo iniciar el pago.");
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al conectar con Mercado Pago.");
+  }
+}
+</script>
+
+<script>
+function actualizarBotonDescarga() {
+
+  const comprado =
+    localStorage.getItem("ebookAnsiedadComprado") === "true";
+
+  const btn =
+    document.getElementById("btnDescargarEbook");
+
+  if (!btn) return;
+
+  if (comprado) {
+
+    btn.classList.remove("disabled");
+    btn.removeAttribute("aria-disabled");
+
+    btn.style.pointerEvents = "auto";
+    btn.style.opacity = "1";
+
+  } else {
+
+    btn.classList.add("disabled");
+    btn.setAttribute("aria-disabled", "true");
+
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = "0.5";
+  }
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  actualizarBotonDescarga
+);
+
+window.addEventListener(
+  "focus",
+  actualizarBotonDescarga
+);
+
+setInterval(
+  actualizarBotonDescarga,
+  1000
+);
+</script>
+
+
 </body>
 </html>

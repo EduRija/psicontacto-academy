@@ -20,23 +20,19 @@
     <div class="navlinks">
       <a href="#cursos">Cursos</a>
       <a href="#aula">Aula virtual</a>
-      <a href="sobre_aula_psicontacto.html"> Sobre el aula</a>
-      <a href="publicar_curso.html">Publicar curso</a>
+      <a href="sobre_aula_psicontacto.html">Sobre el aula </a>
+      
+      <a href="publicar_curso.html"> Publicar curso</a>
       <a href="#profesionales">Profesionales</a>
       <a href="#empresas">Empresas</a>
-     <a class="btn btn-primary"
-      href="https://psicontacto.ar/app"
-      target="_blank"
-      rel="noopener noreferrer">
-      Buscar un psicólogo/a
-      </a>
+      <a class="btn btn-primary" href="#">Buscar un psicólogo/a</a>
     </div>
   </nav>
 
   <header class="hero">
     <div>
-      <div class="badge">Aula Psicontacto · Formación en salud mental</div>
-      <h1>Aprendé, cuidate y conectá con <span>profesionales de salud mental</span>.</h1>
+      <div class="badge">Aula Psicontacto · Formación en salud mental para todo el mundo</div>
+      <h1>Aprendé y conectá con <span>profesionales de salud mental</span>.</h1>
       <p>
         Cursos online con videos, materiales descargables, recursos prácticos y orientación profesional. Una puerta de entrada educativa para personas, instituciones y profesionales.
       </p>
@@ -47,11 +43,30 @@
     </div>
 
     <div class="hero-card">
-      <div class="video-box">
-        <div>
-          <div class="play">▶</div>
-          <strong>Video de bienvenida</strong>
-          <p style="margin:10px 0 0; font-size:15px; color:#5f7885;">Presentación institucional del Aula Psicontacto.</p>
+
+  <div class="video-box">
+
+    <div class="hero-video-real">
+
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    class="video-hero"
+    id="videoHero">
+
+    <source src="assets/video/presentacion.mp4" type="video/mp4">
+
+  </video>
+
+</div>
+    </div>
+
+  </div>
+
+</div>
         </div>
       </div>
       <div class="stats">
@@ -132,7 +147,7 @@
   <section id="aula">
     <div class="section-title">
       <h2>Vista del aula virtual</h2>
-      <p>Una estructura clara: módulos a la izquierda, clase al centro y recursos descargables debajo.</p>
+      <p>Un espacio de formación, orientación y acceso a profesionales de salud mental.tructura clara: módulos a la izquierda, clase al centro y recursos descargables debajo.</p>
     </div>
 
     <div class="aula-preview">
@@ -146,13 +161,78 @@
       <main class="lesson">
         <div class="lesson-video">
           <div>
-            <div class="play">▶</div>
-            <strong>Clase 1: Presentación del recorrido</strong>
-          </div>
+
+
+
+  <section class="carousel-publicaciones">
+
+  <button class="carousel-btn prev" onclick="moverCarrusel(-1)">‹</button>
+
+  <div class="carousel-track" id="carouselProfesionales">
+
+    <div class="prof-slide">
+      <a href="https://psicontacto.ar/app/profesional/5K6z13rg0L" class="prof-link" target="_blank">
+        <img src="assets/img/imagen1.png">
+        <div class="prof-info">
+          <h4>Lic. Mariano Nicolás Mammana</h4>
+          <p>Psicólogo</p>
         </div>
+      </a>
+
+      <a href="https://wa.me/5492901645676?text=Hola,%20te%20escribo%20desde%20Psicontacto%20para%20solicitarte%20una%20consulta."
+         class="btn-whatsapp"
+         target="_blank">
+        WhatsApp
+      </a>
+    </div>
+
+    <div class="prof-slide">
+      <a href="https://psicontacto.ar/app/profesional/EeNg4Vozo3" class="prof-link" target="_blank">
+        <img src="assets/img/imagen2.png">
+        <div class="prof-info">
+          <h4>Bárbara María Kexel</h4>
+          <p>Psicóloga</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="prof-slide">
+      <a href="https://psicontacto.ar/app/profesional/0jz7BDnb2L" class="prof-link" target="_blank">
+        <img src="assets/img/imagen3.png">
+        <div class="prof-info">
+          <h4>Florencia Guerín</h4>
+          <p>Psicóloga</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="prof-slide">
+      <a href="https://psicontacto.ar/app/profesional/D3Vg66yg14" class="prof-link" target="_blank">
+        <img src="assets/img/imagen4.png">
+        <div class="prof-info">
+          <h4>Carlos Andrés Ciballero</h4>
+          <p>Psicólogo</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="prof-slide">
+      <a href="https://psicontacto.ar/app/profesional/ex82x9PbnZ" class="prof-link" target="_blank">
+        <img src="assets/img/imagen5.png">
+        <div class="prof-info">
+          <h4>Lorena Yonadi</h4>
+          <p>Psicóloga</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+ <button class="carousel-btn next" onclick="moverCarrusel(1)">→</button>
+</section>
         <h3>Materiales de esta clase</h3>
         <div class="resources">
-          <div class="resource">📄 Guía PDF</div>
+          <div class="resource">📄 Guía e-book</div>
           <div class="resource">📝 Ejercicio</div>
           <div class="resource">🎧 Audio breve</div>
         </div>
@@ -160,7 +240,7 @@
     </div>
   </section>
 
- <div class="cta">
+  <div class="cta">
   <h2>Del aprendizaje al acompañamiento</h2>
   <p>Al finalizar cada curso, la persona puede solicitar un turno, buscar profesionales disponibles o recibir orientación para continuar su proceso.</p>
 
@@ -174,5 +254,37 @@
     <div>© 2026 Psicontacto.ar · Aula Psicontacto</div>
     <div>Términos y condiciones · Políticas de privacidad · Contacto</div>
   </footer>
+
+<!-- todo tu HTML -->
+
+<script>
+function moverCarrusel(direccion) {
+  const carrusel = document.getElementById("carouselProfesionales");
+
+  carrusel.scrollBy({
+    left: direccion * 344,
+    behavior: "smooth"
+  });
+}
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const video = document.getElementById("videoHero");
+
+  if (video) {
+    video.muted = true;
+
+    video.play().catch(function(error) {
+      console.log("Autoplay bloqueado:", error);
+    });
+  }
+});
+</script>
+
+<video width="400" controls muted autoplay>
+  <source src="assets/video/presentacion.mp4" type="video/mp4">
+</video>
 </body>
 </html>

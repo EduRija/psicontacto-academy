@@ -267,6 +267,19 @@
       </div>
     </section>
 
+     
+      <div class="step">
+        <label>
+          ¿Cómo preferís que podamos contactarte?
+        </label>
+
+        <input
+          type="text"
+          id="contacto"
+          placeholder="Email, teléfono o WhatsApp"
+        >
+      </div>
+
     <section id="resultado" class="resultado-box">
       <h2>Resumen para tu primera consulta</h2>
       <p id="resumenTexto"></p>
@@ -316,11 +329,14 @@
       return el.value.trim() || "No especificado";
     }
 
-    function generarResumen(){
-      const resumen = `Resumen para primera consulta
+   async function generarResumen(){
+  const resumen = `Resumen para primera consulta
 
 Nombre o iniciales:
 ${valor("nombre")}
+
+Contacto:
+${valor("contacto")}
 
 Motivo de consulta:
 ${valor("motivo")}
@@ -340,13 +356,48 @@ ${valor("modalidad")}
 Disponibilidad horaria:
 ${valor("disponibilidad")}
 
+
+
 Nota:
 Este resumen fue organizado por la persona como orientación inicial. No constituye diagnóstico ni reemplaza la evaluación profesional. La persona decide si desea compartirlo con el/la profesional.`;
 
-      document.getElementById("resumenTexto").textContent = resumen;
-      document.getElementById("resultado").style.display = "block";
-      document.getElementById("resultado").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("resumenTexto").textContent = resumen;
+  document.getElementById("resultado").style.display = "block";
+
+  try {
+    const response = await fetch("http://localhost:8000/api/academy/primera-consulta/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nombre: valor("nombre"),
+        contacto: valor("contacto"),
+        motivo: valor("motivo"),
+        desde_cuando: valor("desde"),
+        manifestacion: valor("manifestacion"),
+        expectativa: valor("expectativa"),
+        modalidad: valor("modalidad"),
+        disponibilidad: valor("disponibilidad"),
+        resumen_generado: resumen,
+        profesional_destino: "5K6z13rg0L"
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("No se pudo guardar la consulta");
     }
+
+    console.log("Primera consulta guardada correctamente");
+    window.location.href = "../gracias.html";
+    
+  } catch (error) {
+    console.error("Error al guardar primera consulta:", error);
+    alert("El resumen se generó, pero no pudo guardarse en el sistema.");
+  }
+
+  document.getElementById("resultado").scrollIntoView({ behavior: "smooth" });
+}
 
     function copiarResumen(){
       const texto = document.getElementById("resumenTexto").textContent;
