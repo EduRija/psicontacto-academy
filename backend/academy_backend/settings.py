@@ -21,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4ogt_br+=33306q_qkqk(&-)#e4$mz)g2rl_3l4(+gdasw1xpf'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "")
+if not SECRET_KEY:
+    raise RuntimeError("Falta DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "psicontacto-academy.onrender.com").split(",") if h.strip()]
 
 
 # Application definition
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'academy',
+    'frani_entrevistas',
 ]
 
 
@@ -90,6 +93,21 @@ DATABASES = {
 }
 
 
+# PostgreSQL independiente por credencial y esquema, sin migraciones del ISC.
+# Si FRANI_DB_HOST no está definido, el alias no se configura.
+if os.environ.get("FRANI_DB_HOST"):
+    DATABASES["frani"] = {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["FRANI_DB_NAME"],
+        "USER": os.environ["FRANI_DB_USER"],
+        "PASSWORD": os.environ["FRANI_DB_PASSWORD"],
+        "HOST": os.environ["FRANI_DB_HOST"],
+        "PORT": os.environ.get("FRANI_DB_PORT", "5432"),
+        "OPTIONS": {"options": "-c search_path=frani_piloto"},
+        "CONN_MAX_AGE": 0,
+    }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -125,7 +143,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [o.strip() for o in os.environ.get("FRANI_ALLOWED_ORIGINS", "").split(",") if o.strip()]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "Aula Psicontacto <info@psicontacto.ar>"

@@ -4,6 +4,7 @@ from academy.views import crear_pago_ebook_ansiedad
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/frani/", include("frani_entrevistas.urls")),
     path("api/academy/", include("academy.urls")),
     path("api/pagos/ebook-ansiedad/", crear_pago_ebook_ansiedad),
 ]
